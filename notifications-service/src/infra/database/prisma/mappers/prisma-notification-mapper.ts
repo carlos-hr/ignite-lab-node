@@ -1,4 +1,6 @@
+import { Notification as RawNotification } from '@prisma/client';
 import { Notification } from '@application/entities/notification';
+import { Content } from '@application/entities/content';
 
 export class PrismaNotificationMapper {
   static toPrisma(notification: Notification) {
@@ -13,5 +15,29 @@ export class PrismaNotificationMapper {
       createdAt,
       readAt,
     };
+  }
+
+  static toDomain(raw: RawNotification): Notification {
+    const {
+      canceledAt,
+      category,
+      content,
+      createdAt,
+      id,
+      readAt,
+      recipientId,
+    } = raw;
+
+    return new Notification(
+      {
+        canceledAt,
+        category,
+        content: new Content(content),
+        createdAt,
+        readAt,
+        recipientId,
+      },
+      id,
+    );
   }
 }
