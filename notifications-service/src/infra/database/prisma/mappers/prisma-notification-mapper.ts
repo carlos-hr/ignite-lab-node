@@ -4,8 +4,15 @@ import { Content } from '@application/entities/content';
 
 export class PrismaNotificationMapper {
   static toPrisma(notification: Notification) {
-    const { category, content, recipientId, createdAt, readAt, id } =
-      notification;
+    const {
+      category,
+      content,
+      recipientId,
+      canceledAt,
+      createdAt,
+      readAt,
+      id,
+    } = notification;
 
     return {
       id,
@@ -14,6 +21,7 @@ export class PrismaNotificationMapper {
       recipientId,
       createdAt,
       readAt,
+      canceledAt,
     };
   }
 
